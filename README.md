@@ -2,7 +2,7 @@
 
 > ### Reto de diseño de bases de datos
 > **Gestión de ayudas humanitarias ante una emergencia sísmica en Buenaventura**
-> Trabajo colaborativo · Diseño conceptual y lógico · Normalización · Validación
+> Trabajo colaborativo · Modelo conceptual · Modelo relacional
 
 ---
 
@@ -107,9 +107,7 @@ No basta con detectar una relación de muchos a muchos. Deben decidir si esa rel
 
 ### **ETAPA 1 — Lectura y decantación**
 
-Marquen en el enunciado candidatos a entidades, atributos, relaciones y reglas. Depuren sinónimos y términos ambiguos. Entreguen un glosario de entre **8 y 15 conceptos**, cada uno con una definición de una sola oración vinculada al escenario.
-
-**Evidencia:** glosario y lista de reglas interpretadas.
+Marquen en el enunciado candidatos a entidades, atributos, relaciones y reglas. Depuren sinónimos y términos ambiguos. Elaboren un glosario de entre **8 y 15 conceptos**, cada uno con una definición de una sola oración vinculada al escenario.
 
 ### **ETAPA 2 — Modelo conceptual**
 
@@ -122,6 +120,9 @@ Construyan un diagrama entidad-relación independiente del motor de base de dato
 - entidades asociativas cuando la relación tenga datos propios.
 
 **Evidencia:** diagrama legible y explicación de las decisiones que puedan generar discusión.
+
+> **VALIDACIÓN OBLIGATORIA EN CLASE**
+> El equipo debe presentar al profesor el modelo conceptual elaborado a mano antes de finalizar la sesión. Esta revisión es un requisito para continuar con el modelo relacional. Si el modelo conceptual no ha sido presentado y validado durante la clase, el equipo no queda habilitado para proseguir y la entrega posterior no será recibida.
 
 ### **ETAPA 3 — Modelo relacional**
 
@@ -138,49 +139,13 @@ TABLA_EJEMPLO (
 )
 ```
 
-**Evidencia:** diccionario de datos y esquema relacional.
-
-### **ETAPA 4 — Normalización**
-
-Examinen cada relación hasta tercera forma normal. La explicación debe mostrar el razonamiento, no limitarse a afirmar que el modelo “está en 3FN”.
-
-Para cada cambio realizado, documenten:
-
-```text
-SITUACIÓN DETECTADA  -> dato repetido, grupo multivaluado o dependencia inadecuada
-RIESGO               -> anomalía de inserción, actualización o eliminación
-DECISIÓN             -> separación, nueva clave o restricción
-RESULTADO            -> relación obtenida y dependencia que conserva
-```
-
-Si una tabla ya cumple las formas normales, expliquen por qué a partir de sus dependencias funcionales.
-
-**Evidencia:** matriz de dependencias funcionales y justificación de 1FN, 2FN y 3FN.
-
-### **ETAPA 5 — Integridad y reglas operativas**
-
-Definan las restricciones que protegerán los datos. Incluyan al menos:
-
-- integridad de entidad y referencial;
-- dominios o validaciones para cantidades, estados y niveles de urgencia;
-- reglas de unicidad necesarias para evitar duplicados;
-- política de actualización y eliminación para cada clave foránea;
-- tratamiento de registros históricos;
-- mecanismo para impedir saldos negativos.
-
-**Evidencia:** catálogo de restricciones con su mecanismo de aplicación.
-
-### **ETAPA 6 — Prueba del modelo**
-
-Construyan datos mínimos para ejecutar los casos de validación de la siguiente sección. Si el modelo no puede responder una consulta o permite un dato imposible, corríjanlo y documenten el cambio.
-
-**Evidencia:** datos de prueba, consultas planteadas en lenguaje natural y resultado esperado.
+**Evidencia:** esquema relacional con tablas, atributos, claves primarias y claves foráneas.
 
 ---
 
-## 06 / CASOS DE VALIDACIÓN
+## 06 / CASOS PARA PROBAR EL DISEÑO
 
-El modelo se considera defendible si resuelve estos casos sin columnas multivaluadas, duplicación deliberada ni correcciones manuales del saldo.
+Usen estos casos para revisar el modelo conceptual y el modelo relacional. No deben entregar un informe de validación. Si un caso no puede representarse, revisen las entidades, las relaciones, las cardinalidades o las claves propuestas.
 
 <details>
 <summary><strong>CASO A — Un hogar, varias necesidades</strong></summary>
@@ -240,140 +205,61 @@ El equipo debe proponer una regla realista para detectar o gestionar el posible 
 
 ---
 
-## 07 / CONSULTAS QUE DEBEN PODER RESPONDER
+## 07 / ENTREGA EN GITHUB
 
-Redacten la lógica necesaria para responder estas preguntas. En esta fase pueden usar álgebra relacional, pseudoconsultas o SQL, según lo indicado por el docente.
+Cada equipo entregará el trabajo mediante un repositorio de GitHub. El enlace del repositorio debe compartirse por el medio indicado por el docente. Si el repositorio es privado, el equipo deberá conceder acceso antes del cierre de la entrega.
 
-1. ¿Qué hogares tienen necesidades de urgencia alta que continúan pendientes?
-2. ¿Qué cantidad disponible existe por tipo de ayuda y unidad de medida?
-3. ¿Qué ayudas recibió un hogar, en qué fechas y en cuáles puntos?
-4. ¿Qué donante aportó los artículos incluidos en una entrega, si el diseño conserva esa trazabilidad?
-5. ¿Cuáles puntos registraron entregas entre dos fechas dadas?
-6. ¿Qué usuarios tienen actualmente una función determinada?
-7. ¿Qué necesidades aparecen con mayor frecuencia en una zona?
-8. ¿Qué intentos de entrega deberían rechazarse por falta de existencias?
+La primera versión del modelo se construirá a mano durante la clase, sin computador. Antes de salir del aula, el equipo debe presentarla al profesor y obtener su validación. Después deberá conservar las hojas, fotografiarlas o escanearlas y subirlas al repositorio como evidencia del proceso inicial. Las imágenes deben permitir leer entidades, atributos, relaciones y cardinalidades.
 
-> **DECISIÓN DE ALCANCE**  
-> La pregunta 4 obliga a tomar una decisión de alcance. Si su modelo no vincula una unidad entregada con una donación concreta, explíquenlo y definan hasta dónde llega la trazabilidad. No oculten esa limitación.
+El repositorio contendrá solamente estos productos:
 
----
-
-## 08 / DINÁMICA DE TRABAJO
-
-### Tiempo sugerido: **110 minutos**
-
-| Tramo | Minutos | Acción del equipo | Resultado visible |
-|:--|--:|:--|:--|
-| Lectura de operación | 10 | Subrayar hechos y dudas | Lista inicial de conceptos |
-| Decantación | 15 | Separar entidades, eventos y catálogos | Glosario acordado |
-| Diseño conceptual | 25 | Proponer cardinalidades y resolver relaciones | Primer diagrama |
-| Prueba cruzada | 15 | Intercambiar el modelo con otro equipo | Dos objeciones documentadas |
-| Modelo relacional | 20 | Definir claves, columnas y restricciones | Esquema relacional |
-| Normalización | 15 | Revisar dependencias y anomalías | Justificación hasta 3FN |
-| Defensa relámpago | 10 | Exponer una decisión difícil | Argumento de dos minutos |
-
-### Roles dentro del equipo
-
-Asignen estas responsabilidades. Una persona puede asumir más de una si el grupo es pequeño.
-
-| Responsabilidad | Tarea durante la sesión |
+| Archivo | Contenido |
 |:--|:--|
-| Lectura de reglas | Detecta condiciones que el diagrama podría omitir. |
-| Custodia del modelo | Mantiene consistencia de nombres y cardinalidades. |
-| Prueba adversarial | Busca duplicados, pérdidas de historial y datos imposibles. |
-| Relatoría | Registra decisiones, desacuerdos y cambios. |
-| Vocería | Presenta el diseño sin sustituir la argumentación del grupo. |
+| `README.md` | Nombre del equipo, integrantes y una explicación breve de las decisiones principales. |
+| `01_boceto_manual.pdf` | Fotografías o escaneo del modelo elaborado a mano durante la clase. |
+| `02_modelo_conceptual.pdf` | Versión final del diagrama entidad-relación, con entidades, atributos, identificadores y cardinalidades. |
+| `03_modelo_relacional.md` o `03_modelo_relacional.pdf` | Tablas resultantes, atributos, claves primarias y claves foráneas. |
 
-### Protocolo de prueba cruzada
+No se solicita diccionario de datos, proceso de normalización, consultas SQL ni informe de validación.
 
-Cada equipo entrega su diagrama provisional a otro grupo. El grupo revisor dispone de cinco minutos para formular dos objeciones concretas. Una objeción válida debe mencionar la regla afectada y mostrar un dato que el modelo no pueda guardar o que permita guardar de forma incorrecta.
-
-Ejemplo de estructura:
+### Estructura esperada
 
 ```text
-REGLA AFECTADA:
-DATO O SITUACIÓN DE PRUEBA:
-COMPORTAMIENTO DEL MODELO:
-CORRECCIÓN SOLICITADA:
-```
-
-El equipo autor puede aceptar la objeción, rechazarla con una justificación técnica o modificar el alcance declarado.
-
----
-
-## 09 / ENTREGABLES
-
-Entreguen un solo paquete con los siguientes componentes numerados:
-
-| Nº | Pieza | Contenido mínimo |
-|--:|:--|:--|
-| 01 | Lectura del problema | Glosario y reglas interpretadas |
-| 02 | Modelo conceptual | Diagrama ER con cardinalidades y participación |
-| 03 | Modelo relacional | Tablas, PK, FK, nulabilidad y restricciones |
-| 04 | Diccionario de datos | Definición, tipo y dominio de cada atributo |
-| 05 | Normalización | Dependencias y justificación hasta 3FN |
-| 06 | Validación | Resolución de los siete casos y ajustes realizados |
-| 07 | Decisiones | Tres decisiones discutidas y criterio adoptado |
-
-### Convención de entrega
-
-```text
-grupo_XX/
-01_lectura_problema.md
+repositorio-del-equipo/
+README.md
+01_boceto_manual.pdf
 02_modelo_conceptual.pdf
 03_modelo_relacional.md
-04_diccionario_datos.csv
-05_normalizacion.md
-06_validacion.md
-07_decisiones.md
 ```
 
-El diagrama puede elaborarse con la herramienta acordada en clase. Debe ser legible sin ampliaciones excesivas y usar los mismos nombres del diccionario de datos.
+El modelo conceptual y el modelo relacional deben usar los mismos nombres. Si una relación de muchos a muchos se transforma en una tabla, el cambio debe poder seguirse entre ambos productos.
 
 ---
 
-## 10 / CRITERIOS DE REVISIÓN
+## 08 / CRITERIOS DE REVISIÓN
 
 | Criterio | Pregunta de control |
 |:--|:--|
-| Correspondencia | ¿El modelo representa los hechos descritos y respeta el alcance? |
-| Cardinalidades | ¿Cada relación expresa correctamente mínimos y máximos? |
-| Datos de relación | ¿Las relaciones con atributos propios fueron modeladas sin listas dentro de campos? |
-| Normalización | ¿Las dependencias justifican la estructura y evitan anomalías? |
-| Integridad | ¿Las restricciones impiden cantidades inválidas, huérfanos y duplicados previsibles? |
-| Trazabilidad | ¿Puede reconstruirse el origen y destino de la ayuda dentro del alcance declarado? |
-| Control de acceso | ¿La asignación de funciones admite varias por usuario y varios usuarios por función? |
-| Argumentación | ¿Las decisiones se explican con reglas, casos y consecuencias? |
+| Correspondencia | ¿El modelo representa los hechos descritos en el enunciado? |
+| Entidades y atributos | ¿Cada entidad tiene identidad propia y contiene atributos que le corresponden? |
+| Cardinalidades | ¿Cada relación expresa correctamente cuántos registros pueden participar? |
+| Relaciones de muchos a muchos | ¿Se reconocen sus atributos y se transforman de forma coherente en el modelo relacional? |
+| Claves | ¿Las tablas tienen claves primarias y las relaciones se conservan mediante claves foráneas? |
+| Coherencia | ¿Puede seguirse cada entidad y relación desde el modelo conceptual hasta el relacional? |
+| Control de acceso | ¿El diseño admite varios usuarios por función y varias funciones por usuario? |
 
 ---
 
-## 11 / CONTROL ANTES DE ENTREGAR
+## 09 / CONTROL ANTES DE PUBLICAR
 
 ```text
-[ ] Cada tabla tiene una clave primaria definida.
-[ ] Todas las claves foráneas indican obligatoriedad y política de borrado.
-[ ] Ningún atributo almacena listas separadas por comas.
-[ ] Las relaciones de muchos a muchos fueron examinadas por sus datos propios.
-[ ] Las cantidades incluyen dominio, unidad y validación.
-[ ] El modelo distingue la fecha de entrega de la fecha de registro.
-[ ] Cada tipo de ayuda usa la misma unidad en entradas, existencias y entregas.
-[ ] Los casos A–G pueden representarse sin modificar la estructura.
-[ ] Las consultas propuestas pueden responderse con los datos almacenados.
-[ ] La normalización está razonada mediante dependencias funcionales.
-[ ] El diagrama y el diccionario usan los mismos nombres.
-```
-
----
-
-## 12 / CIERRE DE OPERACIÓN
-
-La defensa del diseño comienza con una decisión que haya dividido al equipo. Expliquen las alternativas consideradas, la regla del problema que usaron para decidir y la consecuencia de su elección sobre la integridad o la trazabilidad.
-
-**Tiempo de exposición: 2 minutos.**  
-**Tiempo de preguntas: 2 minutos.**
-
-```text
-UNA BASE DE DATOS NO SE DEFIENDE POR LA CANTIDAD DE TABLAS.
-SE DEFIENDE POR LOS HECHOS QUE PUEDE CONSERVAR
-Y POR LOS DATOS INCORRECTOS QUE SABE RECHAZAR.
+[ ] El repositorio identifica al equipo y a sus integrantes.
+[ ] El profesor validó el modelo conceptual durante la sesión de clase.
+[ ] Se adjuntó una copia legible del boceto elaborado a mano.
+[ ] El modelo conceptual incluye entidades, atributos y cardinalidades.
+[ ] El modelo relacional identifica tablas, claves primarias y claves foráneas.
+[ ] Las relaciones de muchos a muchos fueron resueltas en el modelo relacional.
+[ ] El modelo conceptual y el relacional usan nombres consistentes.
+[ ] Los casos A–G pueden representarse con el diseño propuesto.
+[ ] Todos los archivos abren correctamente desde GitHub.
 ```
