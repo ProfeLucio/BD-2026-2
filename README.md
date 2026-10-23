@@ -1,17 +1,16 @@
 # **OPERACIÓN MAREA ALTA**
 
 > ### Reto de diseño de bases de datos
-> **Gestión de ayudas humanitarias ante una emergencia sísmica en Buenaventura y el Pacífico colombiano**  
+> **Gestión de ayudas humanitarias ante una emergencia sísmica en Buenaventura**
 > Trabajo colaborativo · Diseño conceptual y lógico · Normalización · Validación
 
 ---
 
 ```text
 ALERTA        La operación comenzó.
-TERRITORIO    Buenaventura y comunidades del litoral Pacífico.
+TERRITORIO    Distrito de Buenaventura: zona urbana y zona rural.
 MISIÓN        Convertir una situación de emergencia en un modelo de datos coherente.
-LÍMITE        6 o 7 tablas para el núcleo operativo.
-CONDICIÓN     El control de acceso se modela por fuera de ese límite.
+FECHA         10 de agosto, dentro del caso académico.
 ```
 
 > **NOTA DE CONTEXTO**  
@@ -19,21 +18,23 @@ CONDICIÓN     El control de acceso se modela por fuera de ese límite.
 
 ---
 
-## 01 / EL ESCENARIO
+## 01 / ENUNCIADO DEL RETO
 
-Un movimiento sísmico de gran intensidad afecta a Buenaventura y a varias comunidades costeras y ribereñas del Pacífico colombiano. Hay daños en viviendas, interrupciones de energía, bloqueos viales, dificultades de comunicación y restricciones para el transporte marítimo y fluvial. Algunas zonas solo pueden recibir suministros mediante embarcaciones de bajo calado; otras dependen de puntos temporales de distribución ubicados en instituciones educativas, escenarios deportivos o espacios comunitarios.
+Para este ejercicio se asume que el 10 de agosto ocurre un evento sísmico en Buenaventura. La fecha pertenece al caso académico y no hace referencia a un terremoto histórico específico. Después del evento se requiere estructurar una base de datos que soporte la gestión de ayudas humanitarias para los hogares afectados del distrito.
 
-La coordinación local necesita un sistema que permita registrar a los hogares afectados, reconocer sus necesidades, recibir donaciones, organizar ayudas y dejar constancia de cada entrega. El sistema no pretende dirigir toda la respuesta institucional. Su alcance se limita al seguimiento de ayudas humanitarias desde que están disponibles hasta que son entregadas a un hogar en un punto de atención.
+Buenaventura comprende una zona urbana, organizada en barrios, y una zona rural conformada por corregimientos, veredas y comunidades. La ubicación de un hogar debe permitir identificar la zona y la división territorial que corresponda. En algunos sectores rurales no existe una dirección convencional, por lo que puede ser necesario registrar una referencia de ubicación.
 
-Los equipos de campo trabajan con conectividad intermitente. En ocasiones registran una entrega horas después de haberla realizado. Por eso, el sistema debe distinguir entre el momento real de la entrega y el momento en que el dato fue ingresado.
+La información se recibe y consolida de manera centralizada. La base de datos debe permitir registrar hogares afectados, identificar sus necesidades, recibir donaciones, controlar la disponibilidad de las ayudas y dejar constancia de las entregas. Su alcance se limita al recorrido de la ayuda desde que es recibida hasta que llega a un hogar en un punto de atención.
 
-Cada hogar afectado tiene una persona de contacto y puede estar asociado a un barrio, vereda, corregimiento o comunidad. El registro debe conservar una referencia de ubicación útil para la operación, incluso cuando no exista una dirección convencional. También debe indicar cuántas personas componen el hogar y si hay condiciones que alteren la prioridad de atención, por ejemplo presencia de niños pequeños, personas mayores, mujeres gestantes o personas con movilidad reducida.
+Cada hogar afectado tiene una persona de contacto. El registro debe indicar cuántas personas componen el hogar y si hay condiciones que alteren la prioridad de atención, por ejemplo presencia de niños pequeños, personas mayores, mujeres gestantes o personas con movilidad reducida.
 
 Los hogares pueden reportar varias necesidades. Una necesidad corresponde a una categoría, como agua potable, alimentos, elementos de aseo, refugio temporal o medicamentos. El mismo tipo de necesidad puede ser reportado por muchos hogares. Para cada reporte interesa conocer la urgencia, una cantidad estimada cuando sea posible, observaciones de campo y su estado de atención. Una necesidad puede cambiar con el tiempo; el diseño deberá definir qué información conservar y qué reglas evitan registros contradictorios.
 
-Las ayudas disponibles provienen de donantes. Un donante puede ser una persona, una organización comunitaria, una empresa o una entidad pública. Cada donación puede contener diferentes tipos de ayuda y cantidades distintas. El equipo logístico debe poder conocer qué se recibió, en qué fecha, de quién provino y qué parte sigue disponible. No todos los artículos se miden igual: unos se cuentan por unidades, otros por paquetes, kilogramos, litros o kits.
+Las ayudas provienen de donantes. Un donante puede ser una persona, una organización comunitaria, una empresa o una entidad pública. Cada donación puede incluir diferentes tipos de ayuda y cantidades distintas. El equipo responsable debe conocer qué se recibió, en qué fecha, quién lo entregó y qué cantidad continúa disponible.
 
-La distribución se realiza desde puntos de atención habilitados temporalmente. Un hogar puede recibir ayuda más de una vez y una jornada de entrega puede atender a muchos hogares. Cada registro de entrega debe indicar el punto, el hogar atendido, la fecha y hora reales, la persona que dejó la constancia y los artículos entregados con sus cantidades. Una entrega puede contener varios tipos de ayuda. El sistema debe impedir que se entreguen cantidades negativas o superiores a las existencias disponibles.
+Cada tipo de ayuda debe manejar una unidad de medida estándar para todos sus movimientos. Si el arroz se controla en libras, las entradas y las entregas se registran en libras. Si un donante informa que entrega dos arrobas, la cantidad debe convertirse a la unidad acordada antes de ingresarla en la base de datos. El sistema no administrará procesos de reempaque, fraccionamiento de presentaciones ni equivalencias durante la distribución. La cantidad recibida, la disponible y la entregada deben poder compararse directamente.
+
+La distribución se realiza desde puntos de atención habilitados para la emergencia. Un hogar puede recibir ayuda más de una vez y una jornada de entrega puede atender a muchos hogares. Cada entrega debe indicar el punto de atención, el hogar atendido, la fecha de entrega, la fecha de registro, la persona que dejó la constancia y los tipos de ayuda entregados con sus cantidades. El sistema debe impedir cantidades negativas o superiores a las existencias disponibles.
 
 La coordinación necesita consultar, como mínimo, qué hogares siguen pendientes, cuáles necesidades tienen mayor urgencia, cuánto inventario queda por tipo de ayuda, qué se entregó a cada hogar y qué movimientos ocurrieron en un punto de atención durante un periodo determinado.
 
@@ -45,7 +46,7 @@ Distintas personas usarán el sistema. Una misma persona puede apoyar más de un
 
 Diseñen una base de datos relacional que sostenga la operación descrita. El resultado debe permitir reconstruir el recorrido de una ayuda: su procedencia, disponibilidad, asignación y entrega.
 
-El núcleo operativo tendrá **seis o siete tablas**. Las tablas necesarias para usuarios, funciones y su asociación se contabilizan aparte. No se asignan nombres obligatorios a las entidades: cada equipo deberá justificar la forma en que separa los conceptos del problema.
+No se asignan nombres ni cantidades obligatorias de tablas. Cada equipo deberá justificar cómo separa los conceptos del problema y por qué cada relación conserva un hecho distinto.
 
 > **PUNTO DE CONTROL**  
 > No comiencen dibujando tablas. Primero identifiquen hechos, reglas, actores, objetos y eventos. Una tabla prematura suele convertir una interpretación inicial en un error difícil de corregir.
@@ -73,11 +74,12 @@ Las siguientes condiciones forman parte del problema. No indican directamente qu
 | R-09 | Cada entrega ocurre en un solo punto de atención, pero un punto registra muchas entregas. |
 | R-10 | Una entrega puede incluir varios tipos de ayuda y un tipo de ayuda puede aparecer en muchas entregas. |
 | R-11 | La cantidad entregada pertenece al detalle de la entrega, no al hogar ni al tipo de ayuda. |
-| R-12 | Debe diferenciarse la fecha real del evento de la fecha de registro en el sistema. |
-| R-13 | Las cantidades deben ser mayores que cero y usar una unidad compatible con el artículo. |
+| R-12 | Debe diferenciarse la fecha de entrega de la fecha de registro en el sistema. |
+| R-13 | Cada tipo de ayuda debe tener una unidad de medida estándar, usada tanto en las entradas como en las entregas. |
 | R-14 | Una entrega confirmada no puede dejar el inventario con saldo negativo. |
 | R-15 | Una persona usuaria puede tener varias funciones y una función puede corresponder a varias personas. |
 | R-16 | La asignación de una función debe poder activarse o finalizar sin eliminar a la persona ni la función. |
+| R-17 | Toda cantidad debe ser mayor que cero y expresarse en la unidad definida para ese tipo de ayuda. |
 
 > **PRECISIÓN TÉCNICA**  
 > Algunas reglas se resuelven con claves y restricciones. Otras requieren una transacción, una consulta de control o lógica de aplicación. Indiquen cuál mecanismo usarían en cada caso.
@@ -189,17 +191,17 @@ El sistema debe conservar por separado el tipo, la urgencia, el estado y la evol
 <details>
 <summary><strong>CASO B — Una donación heterogénea</strong></summary>
 
-Una organización entrega 120 kits de alimentos, 300 litros de agua y 40 mantas. Otra organización entrega el mismo tipo de kit en una fecha posterior.
+Una organización entrega 120 kits de alimentos, 300 litros de agua y 40 mantas. Otro donante aporta dos arrobas de arroz, pero el arroz se controla en libras. La conversión se realiza antes del registro y la base de datos almacena la entrada en la unidad estándar definida para ese producto.
 
-Debe ser posible conocer la procedencia y cantidad de cada componente sin repetir los datos del donante en cada artículo.
+Debe ser posible conocer la procedencia y cantidad de cada componente sin repetir los datos del donante en cada artículo. El inventario no debe mezclar arrobas y libras para el mismo producto.
 </details>
 
 <details>
 <summary><strong>CASO C — Una entrega con varios artículos</strong></summary>
 
-En un punto temporal, un hogar recibe dos kits de alimentos y diez litros de agua en una misma atención. La entrega se realizó a las 09:20, pero se registró a las 14:05 por falta de conectividad.
+En un punto de atención, un hogar recibe dos kits de alimentos y diez litros de agua en una misma atención. La entrega ocurrió el 12 de agosto y fue registrada en la base de datos el 13 de agosto.
 
-El modelo debe conservar ambos momentos y las cantidades de cada artículo.
+El modelo debe conservar ambas fechas y las cantidades de cada artículo.
 </details>
 
 <details>
@@ -346,14 +348,13 @@ El diagrama puede elaborarse con la herramienta acordada en clase. Debe ser legi
 ## 11 / CONTROL ANTES DE ENTREGAR
 
 ```text
-[ ] El núcleo operativo contiene como máximo siete tablas.
-[ ] El control de acceso está separado del conteo anterior.
 [ ] Cada tabla tiene una clave primaria definida.
 [ ] Todas las claves foráneas indican obligatoriedad y política de borrado.
 [ ] Ningún atributo almacena listas separadas por comas.
 [ ] Las relaciones de muchos a muchos fueron examinadas por sus datos propios.
 [ ] Las cantidades incluyen dominio, unidad y validación.
-[ ] El modelo distingue evento ocurrido de registro en el sistema.
+[ ] El modelo distingue la fecha de entrega de la fecha de registro.
+[ ] Cada tipo de ayuda usa la misma unidad en entradas, existencias y entregas.
 [ ] Los casos A–G pueden representarse sin modificar la estructura.
 [ ] Las consultas propuestas pueden responderse con los datos almacenados.
 [ ] La normalización está razonada mediante dependencias funcionales.
