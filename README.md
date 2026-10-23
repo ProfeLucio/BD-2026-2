@@ -10,17 +10,19 @@
 ALERTA        La operación comenzó.
 TERRITORIO    Distrito de Buenaventura: zona urbana y zona rural.
 MISIÓN        Convertir una situación de emergencia en un modelo de datos coherente.
-FECHA         10 de agosto, dentro del caso académico.
+FECHA         10 de agosto de 2026.
 ```
 
-> **NOTA DE CONTEXTO**  
-> Este reto presenta un escenario académico hipotético. No describe ni atribuye hechos a un terremoto histórico específico.
+> **PUNTO DE PARTIDA**
+> Un hecho ocurrido en Buenaventura da origen al problema que se modelará.
 
 ---
 
-## 01 / ENUNCIADO DEL RETO
+## 01 / EL HECHO QUE DA ORIGEN AL RETO
 
-Para este ejercicio se asume que el 10 de agosto ocurre un evento sísmico en Buenaventura. La fecha pertenece al caso académico y no hace referencia a un terremoto histórico específico. Después del evento se requiere estructurar una base de datos que soporte la gestión de ayudas humanitarias para los hogares afectados del distrito.
+El 10 de agosto de 2026, a las 7:34 a. m., un sismo de magnitud 7,4 con epicentro en San José del Palmar, Chocó, afectó el occidente colombiano. Buenaventura estuvo entre los territorios afectados y recibió ayudas humanitarias para atender a las familias damnificadas. El evento dejó una necesidad concreta: organizar información confiable sobre los hogares, sus necesidades, las donaciones recibidas, las existencias y la distribución de las ayudas. Este reto parte de ese hecho para plantear cómo debería estructurarse la base de datos que soportaría dicha gestión.
+
+Fuentes de contexto: [Servicio Geológico Colombiano](https://www2.sgc.gov.co/Noticias/Paginas/Sismo-de-San-Jose-del-Palmar-un-mes-de-monitoreo-investigacion-y-trabajo-en-territorio-del-SGC.aspx) y [Gobernación de Cundinamarca](https://www.cundinamarca.gov.co/noticias/cundinamarca-envia-ayudas-humanitarias-a-buenaventura-tras-el-sismo-del-10-de-agosto/).
 
 Buenaventura comprende una zona urbana, organizada en barrios, y una zona rural conformada por corregimientos, veredas y comunidades. La ubicación de un hogar debe permitir identificar la zona y la división territorial que corresponda. En algunos sectores rurales no existe una dirección convencional, por lo que puede ser necesario registrar una referencia de ubicación.
 
